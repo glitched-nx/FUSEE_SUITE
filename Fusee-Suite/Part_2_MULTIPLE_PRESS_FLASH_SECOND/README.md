@@ -1,4 +1,17 @@
-## Multiple-press settings versions of Fusee_UF2. Identical to other versions but EEPROM bit changed from 00 to 01(or vise-versa) to enable Multiple-press settings.
+### Versionen von Fusee_UF2 für die Einstellung per Mehrfachdruck (Multiple-press). Identisch mit den anderen Versionen, lediglich das entsprechende EEPROM-Bit wurde von 00 auf 01 (bzw. umgekehrt) geändert, um die Einstellungen per Mehrfachdruck (Multiple-press) zu aktivieren.
+
+#### Bei diesen Versionen lässt sich die Boot-Priorität auf 3 Arten einstellen
+
+* Dual-Boot
+* ChipRCM
+* FailsafeRCM (schlägt der Bootvorgang fehl, startet die OFW)
+
+#### Falls jemand eine Version mit nur 2 Optionen (wie früher) möchte, gib mir Bescheid – oder kompiliere sie dir selbst, indem du `#define TRIPLE_BOOT` im Arduino-Quellcode anpasst.
+
+---
+---
+
+### Multiple-press settings versions of Fusee_UF2. Identical to other versions but EEPROM bit changed from 00 to 01(or vise-versa) to enable Multiple-press settings.
 
 #### These versions have the boot priority toggle able to be set in 3 ways
 
