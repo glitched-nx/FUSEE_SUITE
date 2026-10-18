@@ -1,3 +1,269 @@
+## Aktuelle Version: 9.2.1 - Scrolle nach unten für Infos / Intro...
+
+#### TL;DR? Changelog und sonstige Infos...
+
+* 19/06/22 - Der Seeeduino XIAO verfügt über TX/RX-LEDs. Diese befanden sich in den Beta-Builds vom 18/06 in der „Schwebe“. Neue Betas hinzugefügt. Die TX/RX-LEDs sollten nun synchron mit der regulären Onboard-LED arbeiten.
+* 18/06/22 - BETA-Unterstützung für Seeeduino XIAO hinzugefügt. Dies ist komplett ungetestet, da ich kein solches Gerät besitze. Ich verlasse mich darauf, dass das Board korrekt aufgebaut ist und keine üblen Bugs aufweist. Trinket-Builds usw. funktionieren auf diesem Board NICHT, da es wie ein Feather über einen externen Oszillator verfügt. Wenn du also eine „falsche“ Version flashst, läuft sie nicht an, sondern tut einfach gar nichts. (Die Straps wären ohnehin falsch...) Part 1 und Part 2 hinzugefügt. `SETTINGS.UF2` kann genau wie bei anderen Boards verwendet werden.
+* 06/06/22 - Stiller Bugfix. Helligkeitsanpassung für Neopixel behoben. VOL+ Sperre hinzugefügt (für Kinder-Switches – nur über `SETTINGS.UF2` einstellbar oder beim Selbstkompilieren via Arduino). Dateinamenkonvention für Einstellungen geändert. `SETTINGS.UF2`-Dateien verbessert. Nach dem Flashen startet der UF2-Modus nun automatisch, um das Hinzufügen der `SETTINGS.UF2` zu erleichtern. Falls nicht benötigt, schalte die Konsole einfach aus und starte sie neu, um die Standardwerte zu laden. Alles vollautomatisch.
+* 05/06/22 - OK... Alle Dateien sind jetzt aktualisiert. Part 1 - Viele Modifikationen. Part 2 - Ebenso. - `SETTINGS.UF2`-Dateien eingeführt.
+
+## Die alte README und ältere (Basis-)Versionen findest du [HIER](https://github.com/glitched-nx/FUSEE_SUITE/tree/master/Fusee-Suite/Old)
+
+## Schnelles Upgrade-Verfahren von einer früheren Version...
+
+* Stelle sicher, dass deine SD-Karte so eingerichtet ist, wie SDSetup es vorsieht... Mindestens `bootloader/update.bin` MUSS vorhanden sein. Ziehe `fusee.bin` per Drag & Drop in das Hauptverzeichnis (Root) der SD-Karte (befindet sich im Ordner `payloads`), falls gewünscht. Wenn du deine eigene Dateistruktur bevorzugst, musst du deinen `fusee.bin`-Payload (kann beliebig heißen) und die `update.bin` (ebenfalls beliebig) im Menü von Fusee_UF2 manuell auswählen.
+* Boote deine Switch entweder in die OFW oder CFW.
+* Wechsle in den UF2-Modus, indem du entweder leicht auf die Gehäuserückseite drückst, um den Reset-Taster ZWEIMAL zu betätigen. Also: Drücken... Drücken... Wenn du keinen RESET-Taster hast, nimm die Rückseite der Konsole ab und verbinde RESET kurz mit GND (Masse). Falls du bereits eine relativ aktuelle Version von Fusee_UF2 nutzt, gibt es Möglichkeiten, den UF2-Modus zu starten, ohne das Gehäuse zu öffnen... Schau dazu oben unter „Old Releases“ nach.
+* Stelle sicher, dass der Switch-Bildschirm im Standby und ausgeschaltet ist – NICHT NEU STARTEN!
+* Verbinde die Konsole über ein USB-C-Kabel mit dem PC. Du erhältst eine Fehlermeldung („Laden nicht möglich“ / „Unable to charge“). Das ist völlig normal.
+* Versetze den Bildschirm wieder in den Standby (falls er aufgewacht ist), indem du kurz auf POWER drückst, um den Bildschirm auszuschalten.
+* Es sollte nun ein UF2-Laufwerk am PC erscheinen (gemountet werden). Es heißt wahrscheinlich `SWITCHBOOT`.
+* Ziehe den neuen Part 1 für deinen Chip per Drag & Drop auf das Laufwerk (wahrscheinlich ein Trinket oder ein entsprechender Klon). Sobald du Part 1 draufziehst, ändert sich der Laufwerksname von `SWITCHBOOT` zu `FUSEE`. Wenn er sich nicht in `FUSEE` ändert, ist etwas schiefgelaufen. Versuche es erneut.
+* Das UF2-Laufwerk sollte kurz verschwinden und nach einigen Sekunden wieder auftauchen. Falls nicht, drücke erneut zweimal auf die Gehäuserückseite und schalte den Bildschirm wieder aus... Jetzt sollte es erscheinen. Prüfe, ob das Laufwerk `FUSEE` heißt! Das ist wichtig.
+* Wähle einen Part 2. Langdruck (Long-press) oder Mehrfachdruck (Multiple-press)? Du entscheidest. Mehrfachdruck ist für Leute ohne verbaute LED gedacht, kann aber von jedem genutzt werden. Ziehe die Datei per Drag & Drop auf das Laufwerk. Das UF2-Laufwerk sollte sich erneut öffnen...
+* Du bist fertig. Du kannst die Konsole nun entweder ausschalten oder noch eine `SETTINGS.UF2` flashen. Die Konsole bootet danach ganz normal bzw. genau so, wie du sie konfiguriert hast.
+* Ende. Wenn alles gut gegangen ist, musst du deine Konsole nie wieder öffnen (falls du es diesmal getan hast), um in den UF2-Modus zu gelangen. Niemand sollte seine Konsole zerlegen müssen, nur um den Chip in den UF2-Modus zu versetzen.
+
+## Schnellstmögliche Minimal-Installation (Bare Minimum):
+
+* Verwende ein unterstütztes Adafruit-Board (Empfehlung: Trinket).
+* Mit dem PC verbinden und durch zweimaliges Drücken von RESET in den Bootloader-Modus wechseln.
+* Trinket Part 1 per Drag & Drop aufspielen.
+* Trinket Part 2 per Drag & Drop aufspielen.
+* USB-Port auf dem Trinket mit Heißluft entfernen.
+* Trinket mit Kaptonband zur Isolierung und etwas doppelseitigem VHB-Klebeband auf dem RAM-Abschirmblech fixieren.
+* USB D+/D-, 3V, GND und den Joy-Con-Strap anlöten (DAS IST DAS ABSOLUTE MINIMUM. Ein permanenter CFW-Boot ist so nicht möglich; da der VOL+ Strap nicht angeschlossen ist, läuft es IMMER auf Dual-Boot hinaus).
+* Alles sauber und ordentlich mit Kaptonband isolieren.
+* Nimm eine vernünftige Schere und schneide einen Schlitz in das Abschirmblech, um Platz für den Trinket zu schaffen.
+* FERTIG...
+* Löte bei Bedarf zusätzliche Straps an. Wenn du glaubst, dass du die Zusatzfunktionen des Chips ohnehin nicht nutzt, kannst du sie weglassen.
+* Die zusätzlichen Straps sind VOL+ und USB. Diese sind erforderlich, wenn du dauerhaft und automatisch in die CFW booten möchtest.
+
+#### Wichtige Unterschiede...
+
+* Es wird nicht mehr nach `payload.bin` gesucht. Stattdessen sucht der Chip nach `fusee.bin` (oder `bootloader/update.bin`). Du kannst deine `payload.bin` aber im Fusee_UF2-Menü umbenennen.
+* Du willst jedes Mal direkt in Hekate booten? Ganz einfach: Deaktiviere oder lösche einfach die `fusee.bin`, falls vorhanden (oder benenne Hekate entsprechend um, wenn du möchtest). Hekate / Nyx bootet dann automatisch.
+* Halte BEIDE Lautstärketasten (VOL+ und VOL-) gedrückt und schalte die Konsole ein, wenn du einen Kaltstart (Cold-Boot) direkt in Hekate / Nyx statt in die `fusee.bin` durchführen willst (nicht dauerhaft, gilt nur für diesen einen Bootvorgang. Um es dauerhaft zu machen, deaktiviere `fusee.bin` im Menü).
+
+## FUSEE UF2
+
+Interner, Mikrocontroller-basierter Payload-Loader/-Booter für die Nintendo Switch.
+
+Bestehend aus:
+
+Einer UNGEPATCHTEN Nintendo Switch v1 Konsole
+
+Einem SAMD21-Gerät (Adafruit Trinket / Gemma / ItsyBitsy usw.)
+
+Part 1 dieser Software: Der SWITCHBOOT- oder FUSEE-RCM-Bootloader, der – sobald der Chip in deiner Konsole verbaut ist – den RCM-Modus auslöst.
+
+Part 2: Die eigentliche Software zum Laden des Payloads sowie die Chip-Einstellungen...
+
+## Features - Danke an CTCAer für die Hekate-Basis, die teilweise in Part 2 genutzt wird. Der andere Teil basiert auf Arduino.
+
+* Schneller Exploit und Bootvorgang
+* Schnelles Auslösen des RCM (ca. unter 5 ms)
+* Integrierte Tools zum Durchsuchen der SD-Karte
+* Neukalibrierung von Akku und Ladestandsanzeige (wirkt allerdings keine Wunder – ein toter Akku bleibt ein toter Akku)
+* „Korrekter“ Bootscreen: Entweder klassisch Schwarz (Stock) oder Rot/Weiß
+* Wechsel zwischen OFW / CFW / Linux usw. einfach durch Gedrückthalten einer Taste beim Einschalten
+* Schnelle SAFE-Backup-Funktion
+* Software ist einfach zu programmieren und zu aktualisieren (sobald man das Prinzip einmal verstanden hat)
+* Wirf PC-Launch-Tools, Joy-Con-Jigs und das akkufressende AutoRCM für immer in den Müll
+* Viele Nutzer seit über 4 Jahren (lief lange Zeit ohne Updates, da schlicht keine nötig waren)
+* Wenn dein Chip sauber verbaut ist, hält er ein Leben lang
+
+## Kurzanleitung:
+
+* Chip einbauen
+* „Part 1“ flashen
+* Einen „Part 2“ auswählen... Flashen
+* Optional `SETTINGS.UF2` flashen
+* SD-Karte über sdsetup.com einrichten
+* `fusee.bin` in das Hauptverzeichnis (Root) der SD-Karte legen
+* Einschalten
+* Kurzes Drücken auf VOL+ bootet `fusee.bin` (oder Hekate/Nyx). Langes Drücken auf VOL+ öffnet das Menü
+* VOL- UND VOL+ startet Hekate/Nyx (keine weitere Konfiguration nötig – der Payload sollte bereits unter `bootloader/update.bin` liegen)
+* Keine Taste drücken – der gewählte Payload oder die Original-Firmware (OFW) startet, abhängig von deinen Chip-Einstellungen
+
+## EINBAU EINES CHIPS
+
+Die meisten SAMD21-Geräte werden unterstützt oder können passend gemacht werden.
+
+Unterstützte Boards sind:
+
+* Adafruit Trinket M0
+* Adafruit QTPY M0
+* SEEEDUINO XIAO (Testphase BETA)
+* Rebug SWITCHME
+* RCM-X86
+* Adafruit Gemma
+* Adafruit ItsyBitsy
+* Adafruit Feather
+* **NEU** Naked Chip – wenn du WIRKLICH gut löten kannst, verbaue einen reinen QFP-Chip auf der Unterseite. Keine Tasten oder LEDs erforderlich
+
+Sieh dir die [Einbaudiagramme](https://github.com/glitched-nx/FUSEE_SUITE/tree/master/Install%20Diagrams) an, um zu erfahren, wie man den Chip einbaut. Oder verbaue einen „Naked“-Chip ganz ohne Tasten, LED oder eigene Platine (PCB).
+
+## NUTZER OHNE RESET-TASTER
+
+Um auf den UF2-Bootloader zuzugreifen, HALTE ENTWEDER VOL+ FÜR 20 SEKUNDEN GEDRÜCKT oder WÄHLE DIE ENTSPRECHENDE OPTION IM CHIP-ASSISTENTEN-MENÜ.
+Wenn du keinen Part 2 geflasht hast (oder dieser beschädigt ist) und du keinen Zugriff auf den RESET-Pin hast, kannst du den Chip alternativ stromlos machen,
+SWDIO mit GND verbinden und die Konsole einschalten. Dadurch gelangst du in den Part-1-Bootloader... Siehe unten...
+
+Es wird in den meisten Fällen empfohlen, deinen Chip VOR DEM EINBAU zu flashen. Das bleibt aber deine Entscheidung. Du kommst unter allen Umständen in den UF2-Bootloader. Ein fabrikneuer, leerer („VIRGIN SOLO“) Chip MUSS jedoch vor dem Einbau geflasht werden, schon um deine eigenen Nerven zu schonen.
+
+Also...
+
+* Flashe Part 1 – ein Laufwerk namens `FUSEE` öffnet sich.
+* Flashe Part 2 – die Software startet sofort.
+* OPTIONAL – Im Fusee-Branch auf dieser Seite findest du neue `SETTINGS.UF2`-Dateien. Diese sind universell für alle SAMD21-Chips einsetzbar. Wechsle in den UF2-Modus und ziehe sie per Drag & Drop auf das Laufwerk, um deine Chip-Einstellungen zu ändern.
+
+## Bedienung
+
+#### Part 1 flashen
+
+Bei regulären („stock“) Mikrocontrollern (z. B. von Adafruit) ziehst du deinen Part 1 einfach per Drag & Drop auf das UF2-Laufwerk deines Chips. Das war's schon.
+
+Wenn du einen FABRIKNEUEN SAMD21-Chip flashst, musst du dies mit einem Flasher deiner Wahl tun oder alternativ mein fertig konfiguriertes Raspberry Pi / OpenOCD-Image verwenden.
+Verbinde Strom (Power), GND, SWCLK sowie SWDIO und flashe eine BIN-Datei. Ich empfehle die TRINKET-Version, aber jede andere geht auch. Denk daran: Wenn du die FEATHER-Version nutzt, benötigt dein Chip
+einen externen Oszillator. Egal wofür du dich entscheidest, dein leerer Chip nutzt exakt dieselbe Pinbelegung wie das entsprechende vollwertige Board. Du musst deine Straps also genau wie bei diesem Board-Typ verkabeln.
+
+Wenn du einen gebrickten Chip neu flashst, gilt genau derselbe Ablauf.
+
+#### Part 2 flashen
+
+Ziehe den gewählten Part 2 per Drag & Drop auf das `FUSEE`-UF2-Laufwerk. Das Flashen ist damit abgeschlossen.
+
+Ich werde 2 identische Versionen hochladen: Eine mit der Einstellungsmethode über langes Drücken (Long-press), eine für mehrfaches Drücken (Multiple-press). Es handelt sich um absolut identische Dateien, bei denen lediglich eine
+Option ab Werk voreingestellt ist, um Long-press oder Multiple-press zu aktivieren. Du kannst diese Option jederzeit im Menü oder über deine VOL+ Taste ändern. Das dient nur der Bequemlichkeit. Die Dateien sind ansonsten exakt
+gleich. Du kannst deine Einstellungen auch über eine `SETTINGS.UF2`-Datei anpassen.
+
+**Long-press (Langdruck)** – Zu JEDEM ZEITPUNKT, an dem die Konsole eingeschaltet ist, kannst du VOL+ GEDRÜCKT HALTEN, woraufhin die LED anfängt zu blinken. Zähle das Aufblinken für die gewünschte Einstellung mit.
+Die Einstellungen sind:
+
+* 1x Blinken - Wechsel zwischen Dual-Boot / Chip-basiertem RCM oder FailsafeRCM (standardmäßig ist ChipRCM aktiviert und die Konsole startet bei jedem Booten in den RCM, sofern die Straps verbunden sind)
+* 2x Blinken - Wechsel der Bootlogo-Farbe – „Stock“ Schwarz oder „Switch“ Rot
+* 3x Blinken - Helligkeit für RGB-LED / Dotstar / Neopixel (sofern an den richtigen Pins angeschlossen; bei unveränderten Adafruit-Boards ist das der Fall)
+* 4x Blinken - Wechsel der Einstellungsmethode zwischen Long-press und Multiple-press
+* 5x Blinken - Alle Chip-Optionen auf Werkseinstellungen zurücksetzen (AutoRCM bzw. ChipRCM aktiviert, schwarz-weißer „Stock“-Bootscreen)
+* 6x Blinken - Zugriff auf den UF2-Bootloader. Aktiviere dies, während du im Fusee_UF2-Programm bist, verbinde die Konsole mit dem PC und starte irgendetwas (OFW / CFW?) – das Laufwerk `FUSEE` (ehemals `SWITCHBOOT`) öffnet sich sofort am PC. Nutzer ohne LED können dies ebenfalls auslösen, indem sie VOL+ für 20 Sekunden gedrückt halten.
+
+**Multiple-press (Mehrfachdruck)** – Dieser Modus ist nach einem Kaltstart (Cold-Boot) nur für 30 Sekunden aktiv. Wenn du also mehrere Optionen ändern möchtest, musst du eventuell neu starten, um den Countdown zurückzusetzen.
+Der Countdown wird auf dem Bildschirm angezeigt. Warum ein Countdown? Damit der Modus nicht versehentlich aktiviert wird. Kinder und Erwachsene drücken im normalen Betrieb oft mehrfach auf VOL+, um die Lautstärke zu erhöhen.
+Dadurch könnten sich sonst ungewollt Einstellungen verstellen. Dieser Modus hat aber einen großen Vorteil: Du kannst die Optionen direkt im Fusee-Menü einstellen. Schau dir dort den
+„Chip Setting Assistant“ (Chip-Einrichtungsassistent) an. Dadurch ist es möglich, einen Chip komplett „blind“ und „naked“ zu nutzen – also völlig ohne LED oder Reset-Taster.
+
+Die Optionen 1 bis 6 sind identisch mit den oben genannten.
+
+Öffne den Chip Setup Assistant im Menü und drücke schnell hintereinander VOL+, um die gewünschte Option zu ändern.
+
+Warum gibt es nicht einfach ein Menü, das man ganz „normal“ bedienen kann?
+Technische Limitierungen.
+Es ist nicht möglich, direkt mit dem Chip zu kommunizieren, sobald der integrierte „Payload“ auf der Switch läuft. Bzw. es IST theoretisch möglich... Aber der USB-Code würde EXTREM VIEL Arbeit erfordern, um vom Host- in den Device-Modus zu wechseln,
+von der Switch-Seite aus zu enumerieren und über eine serielle Schnittstelle zu kommunizieren. Es wurde überlegt, zusätzliche Kabel für I2C oder Ähnliches zu ziehen. Aber das hilft den Nutzern der ersten Stunde mit ihren bestehenden Installationen nicht weiter.
+Außerdem ist der Speicherplatz knapp. Bei der aktuellen Größe ist es ohnehin schon extrem eng, alles auf einen SAMD21E17 zu quetschen. Deshalb ist der E18 (mit 256 KB Flash) der Standard.
+Für die paar verfügbaren Optionen lohnt sich dieser Aufwand schlichtweg nicht.
+Daher „spiegeln“ wir das mehrfache Tastendrücken, das wir in der Hardware machen, einfach in der Software. Das ist alles.
+
+Weitere menübasierte Funktionen – minimalistisches SCHNELL-Backup. Keine Geduld, auf einen vollständigen rawnand-Dump zu warten? Sichere einfach nur deine Partitionen `BOOT0/1` und `PRODINFO`. Einen NAND
+komplett von Grund auf neu aufzubauen ist zwar immer noch lästig, aber so bleiben dir zumindest all deine Zertifikate und Kalibrierungsdaten erhalten. Da draußen gibt es ein paar echt miese Typen (Malware/Bricker). Mach ein SAFE-Backup. Sofort.
+
+## Zusammenfassung der Änderungen in dieser Paketversion
+
+Modifikationen am UF2-Bootloader
+
+* Aktualisiert für QTPY
+* (Noch unveröffentlichte Unterstützung für Raspberry Pi Pico – erfordert weitere Tests und ist daher aktuell noch nicht enthalten)
+* Erkennungscode zur Prüfung des Dual-Boot-Flags, inklusive neuer Failsafe-Option
+* Umbenennung des Laufwerks
+* Option zum Entfernen der RST-Taster-Unterstützung für schnelleres Booten und für Konsolen ohne eigenen RST-Taster – standardmäßig nicht aktiv. Nach reiflicher Überlegung wurde entschieden, den Doppeldruck
+beizubehalten. Wenn du den RESET-Taster aus irgendeinem Grund deaktivieren möchtest, musst du den Code nach einer Anpassung der Datei `board_config.h` selbst aus dem Quellcode neu kompilieren.
+* Part 1 erkennt nun, ob über USB Strom anliegt, bevor die Straps auf Low (GND) gezogen werden (sofern die Einstellung FailsafeRCM genutzt wird). Liegt Spannung an, ist die Konsole am PC angeschlossen und der Chip kann keinen Payload senden. Das könnte sonst dazu führen, dass sich der Akku im RCM komplett tiefentlädt
+und Schaden nimmt. Die neue Option (einstellbar in Part 2) verhindert genau das: Wenn versucht wird, über den Chip zu booten, während ein USB-Kabel eingesteckt ist,
+erfolgt stattdessen ein NORMALER OFW-BOOT und der Chip schaltet sich bis zum nächsten Neustart ab. Dies ist optional und keineswegs zwingend erforderlich, kann aber sehr praktisch sein. ACHTUNG: Dadurch WERDEN eFuses durchgebrannt (gebrannt) – wenn du also aus irgendeinem Grund versuchst, deine Fuses auf einem niedrigen Stand zu halten
+(wofür es eigentlich keinen echten Grund mehr gibt), solltest du diese Funktion nicht verwenden.
+* Notfall-Zugriff auf den Bootloader (falls du keinen Zugriff auf den RESET-Pin hast o. Ä.)... Verbinde SWDIO mit GND, während du PWR drückst, um in den UF2-Modus zu gelangen (Konsole ausschalten, SWDIO auf GND halten, einschalten).
+* Anpassbare Verzögerung für die Straps (aktuell 75 ms – ich hatte auch mit einer Haltezeit von 25 ms gute Ergebnisse). Wenn du diesen Wert ändern möchtest, musst du selbst aus dem mitgelieferten Quellcode kompilieren. Bearbeite dazu die `board_config.h` für dein jeweiliges Board.
+* Kompiliert mit der GCC-Toolchain 2019-9-Q4. Neuere Versionen erzeugen eine langsamere Binary, die nicht schnell genug initialisiert, um rechtzeitig den RCM auszulösen.
+* Um den größeren Initialisierungscode und die Fuse-Einstellungen im SAMD21 unterzubringen, ist die Binary für Part 1 deutlich angewachsen. Es war daher notwendig, die RGB-LED-Unterstützung NUR FÜR PART 1 zu entfernen. Du siehst dort also nur noch eine einfache
+Standard-LED leuchten, falls verbaut. Die RGB-LED funktioniert wieder völlig normal, sobald Part 2 geflasht ist. Dies betrifft ausschließlich Part 1. Für Part 1 brauchen wir ohnehin keine RGB-LED... Der Adafruit QTPY ist hiervon ausgenommen – da er keine eigene
+einfarbige Onboard-LED besitzt, bleibt die RGB-LED bei diesem Board auch in Part 1 aktiviert.
+
+#### Modifikationen am Hauptprogramm
+
+* Basiert auf Hekate 5.2+
+* Bildschirmausrichtung horizontal gedreht
+* Schriftart geändert
+* Farben angepasst
+* TUI modifiziert – Neuimplementierung der Statusleiste. Neues Timeout-Feature – kehrt nach einer gewissen Zeit automatisch zum Hauptbildschirm zurück
+* GFX modifiziert – neue Schriftart, neues Batterie-Icon, Bildschirm-Dimmung
+* Dateibrowser – aufgeräumt. Unterstützung für mehrere Seiten. Einfach zu bedienende „API“. Durchsuche, starte oder lösche beliebige Dateien an jedem Ort auf der SD-Karte
+* SAFE-Backup hinzugefügt (Schnell-Backup von `BOOT0/1` und `PRODINFO`)
+* Unterstützung für das Flashen von Reparatur-Paketen für `BOOT0/1` (auch bei geringerer Dateigröße / Undersize)
+* Löschen von Dateien und Ordnern
+* Aktivieren / Deaktivieren von Nyx
+* Backup und Wiederherstellung (Restore) aus beliebigen Ordnern
+* Pre-Caching / Vorab-Prüfung („stat“) von Payloads während der Anzeige des Bootscreens für höhere Geschwindigkeit
+* Chip Setup Assistant neu sortiert, damit auch Nutzer ohne RST-Taster oder LED problemlos in den Bootloader-Modus gelangen können
+* Durch den Chip Setup Assistant (bei Nutzung von Multiple-press) wird keine LED mehr benötigt
+* Du kannst nun einen „Naked“-Chip auf der Unterseite des Mainboards verbauen und alle Funktionen komplett ohne LED oder RST-Taster nutzen
+* Informativeren Hilfe- / Info-Bildschirm zum Chip hinzugefügt
+
+#### Modifikationen am Arduino-Code
+
+* Code bereinigt
+* Beschleunigung von Check / Launch / Stack-Collapse. Das Starten von Fusee (zumindest bis zum Atmosphère-Logo) ist doppelt so schnell wie im Originalzustand (Stock).
+* Neopixel-Unterstützung hinzugefügt
+* 20 Sekunden Langdruck (Long-press) für den „blinden“ Zugriff auf den UF2-Bootloader ganz ohne LED.
+
+## PROBLEME / FAQ
+
+* Ich habe Part 1 geflasht – Nichts ist passiert. Es ist kein Laufwerk aufgetaucht.
+
+Trenne die USB-Verbindung (falls eingesteckt), schalte die Konsole komplett aus und wieder ein. Wenn immer noch nichts passiert, musst du den RESET manuell auslösen. Verbinde dazu entweder den RESET-Pin kurz mit GND oder halte SWDIO auf GND, während du die Konsole einschaltest.
+
+* Ich kann nichts per Drag & Drop auf meinen Chip ziehen. Es passiert nichts, wenn ich RESET drücke.
+
+Hast du einen fabrikneuen (Virgin) Chip? Dieser muss beim allerersten Mal zwingend mit OpenOCD / einem Raspberry Pi / einem anderen Programmiergerät geflasht werden. Ich kann das gegen Übernahme der Portokosten für dich erledigen.
+Wenn du ein Board hast, das bereits funktioniert hat, mach einen kurzen Test... Wenn es in der Konsole verbaut ist, schalte sie ein, während du VOL+ gedrückt hältst. Wird der RCM ausgelöst? Dann musst du lediglich in den UF2-Modus wechseln. Siehe dazu die erste Frage.
+Passiert gar nichts, hast du es tatsächlich irgendwie geschafft, Part 1 zu beschädigen. Behandle ihn wie einen fabrikneuen Chip: Verbinde SWCLK und SWDIO und flashe ihn über OpenOCD neu.
+Falls der USB-Port noch auf dem Board vorhanden ist, versuche, ihn direkt an den PC anzuschließen und zweimal schnell auf RESET zu drücken.
+
+#### TODO: Ausführlichere Anleitung zum Flashen und zur Nutzung
+
+#### TODO: Link zum Raspberry Pi OpenOCD-Image und Kurzanleitung hier einfügen.
+
+## Glossar der in diesem Dokument verwendeten Begriffe
+
+* CFW - Custom Firmware (angepasste Firmware)
+* OFW - Original (Stock) Firmware (originale Systemsoftware von Nintendo)
+* RCM - Recovery Mode. Ein spezieller Modus der Switch für Wartungszwecke, vermutlich für die Produktion im Werk gedacht. Für Endnutzer normalerweise nicht zugänglich. Wir nutzen ihn als notwendiges Einfallstor, um eigene „Payloads“ über eine Sicherheitslücke auszuführen.
+* AutoRCM - Automatisches Auslösen des RCM-Modus beim Einschalten, was nötig ist, um den Bootvorgang einer CFW auf der Switch ohne manuelle Hilfsmittel einzuleiten.
+* Payload - Ein kleines Softwareprogramm, das vor dem eigentlichen Betriebssystem auf der Konsole startet, die Hardware-Schwachstelle ausnutzt und beliebigen eigenen Code ausführt.
+* ChipRCM - Meine eigene Version von AutoRCM. Anstatt wie bei anderen Methoden gezielt Daten im internen Flash-Speicher (BOOT0) zu korrumpieren, nutzt diese Methode im Grunde den „offiziellen“ Hardware-Weg über den Chip, um in den RCM zu gelangen.
+* FailsafeRCM - Identisch mit ChipRCM, deaktiviert sich jedoch automatisch selbst, wenn der Chip keinen Payload senden kann – z. B. wenn die Konsole am PC angeschlossen ist (die Nutzung von Fusee-UF2 über einen internen Chip ist technisch nicht möglich, solange die USB-Leitung durch einen PC blockiert wird, wodurch die Konsole im RCM-Modus „gefangen“ wäre. Im normalen AutoRCM- oder ChipRCM-Modus würde sich der Akku dadurch komplett entladen und potenziell Schaden nehmen). FailsafeRCM verhindert dies. Du MUSST den USB-Strap angelötet haben, um diese Funktion nutzen zu können.
+* SAFE-Backup - Ein unverzichtbares Backup der Partitionen `BOOT0/1` und `PRODINFO`. Diese enthalten konsolenspezifische Zertifikate und Kalibrierungsdaten deiner Switch. Sie sind nicht zwischen verschiedenen Konsolen austauschbar. Google nach „Brickachu“ für weitere Informationen.
+* Strap - Ein dünnes Kabel bzw. eine Datenleitung, die einen Ein-/Ausgang des Chips (unseres SAMD21, den wir für Fusee_UF2 nutzen) mit einem bestimmten Lötpunkt auf dem Switch-Mainboard verbindet, um eine Hardware-Aktion auszulösen. Beispiel: Der VOL+ Strap simuliert das physische Drücken der VOL+ Taste. Wir nutzen insgesamt 3 Straps: Joy-Con (Pin 10), Volume (VOL+) und USB. Nur der Joy-Con-Strap ist zwingend erforderlich, um eine CFW zu starten. VOL+ kann beim Einschalten auch manuell per Hand gedrückt werden.
+* Drop the straps / Einen Strap auf Low ziehen - Eine dieser Leitungen auf Masse (GND) ziehen, wodurch das entsprechende Signal ausgelöst wird.
+
+## Warum arbeitest du immer weiter an so einem simplen Stück Software für eine so simple Aufgabe?
+
+* Weil ich möchte, dass es sauber läuft und so fehlerfrei wie möglich ist
+* Es soll einfach zu bedienen sein
+* Und einfach zu installieren
+
+## Wie funktioniert das technisch?
+
+* Der Chip generiert den benötigten Payload im Bruchteil einer Sekunde „on-the-fly“ (in Echtzeit) basierend auf den gewählten Einstellungen. Dabei kommt Code von mir, Usbhost, anderen Entwicklern aus der Anfangszeit sowie vom Schöpfer von Hekate und aus dem Arduino-Projekt zum Einsatz. Es ist (bzw. war) ein echtes Gemeinschaftsprojekt.
+
+## Verschleißt der Chip nicht, wenn ständig darauf geschrieben wird?
+
+* Ja, irgendwann schon. Vielleicht. Atmel gibt 10.000 Schreibzyklen an, bevor der Chip langsam „demenzkrank“ wird. Diese Software nutzt jedoch vollständiges Wear-Levelling (Verschleißausgleich), und es werden immer nur einzelne Bits genau dann geschrieben, wenn es wirklich nötig ist – anstatt dieselben Datenblöcke immer und immer wieder neu zu überschreiben. Das verschafft uns effektiv $10000^{15}$ Schreibzyklen (wir nutzen 15 Speicherseiten ganz am Ende des Flash-Speichers). Das hält vermutlich länger als jede SD-Karte... Ich nutze seit 2018 exakt denselben SAMD21-Testaufbau mit demselben Chip. Er wird fast täglich beschrieben und genutzt. Er läuft immer noch einwandfrei. Zudem wird im Alltag ja nicht permanent darauf geschrieben: Wahrscheinlich stellst du deine Optionen einmal ein und änderst sie danach nie wieder.
+
+## Haftungsausschluss (Disclaimer): Du solltest ganz genau wissen, was du tust, bevor du dich an diese Modifikation wagst. Es ist nicht einfach – die Lötpunkte sind wirklich extrem winzig. Dieses Projekt enthält keinerlei kryptografische Schlüssel (Keys) oder urheberrechtlich geschütztes Material von Nintendo. Die Veröffentlichung erfolgt als Open-Source-Projekt ohne jegliche ausdrückliche oder stillschweigende Garantie. WENN ETWAS SCHIEFGEHT, BIST ALLEIN DU SELBST DAFÜR VERANTWORTLICH.
+
+-----
+
 ## Current Version: 9.2.1 - Scroll down for info / intro...
 
 #### TL;DR? Changelog and other bits...
@@ -7,7 +273,7 @@
 - 06/06/22 - Silent bugfix. Neopixel brightness adjustment fixed. Added a VOL+ lockout (for kids Switches - only settable with SETTINGS.UF2, or building with Arduino). Changed settings filename convention. Improved SETTINGS.UF2 files. After flashing, UF2 mode will start automatically, for convenience of adding SETTINGS.UF2. If not required, just power down console and reboot to set some default values. All automatic.
 - 05/06/22 - OK... All files now updated. Part 1 - Lots of modifications. Part 2 - Same. - SETTINGS.UF2 files introduced.
 
-## Old README and older (basic) versions are [HERE](https://github.com/mattytrog/FUSEE_SUITE/tree/master/Fusee-Suite/Old)
+## Old README and older (basic) versions are [HERE](https://github.com/glitched-nx/FUSEE_SUITE/tree/master/Fusee-Suite/Old)
 
 ## Quick upgrade procedure if coming from earlier version...
 - Make sure your SD is set up as SDSetup does it... bootloader/update.bin present AT LEAST. Drag and drop fusee.bin to SD root (its in payloads folder) if desired. If you want your own file organisation, you will need to choose your fusee.bin payload(can be anything) and update.bin (again, anything) in the menu of Fusee_UF2.
@@ -92,7 +358,7 @@ Boards supported are:
 - Adafruit Feather
 - **NEW** Naked chip - if you are REALLY gifted at soldering, fit a QFP chip underneath. No buttons or LEDS needed
 
-Look in the [install diagrams](https://github.com/mattytrog/FUSEE_SUITE/tree/master/Install%20Diagrams) to see how to fit one. Or fit a 'Naked' chip, without buttons, LED or even PCB.
+Look in the [install diagrams](https://github.com/glitched-nx/FUSEE_SUITE/tree/master/Install%20Diagrams) to see how to fit one. Or fit a 'Naked' chip, without buttons, LED or even PCB.
 
 ## USERS WITHOUT RESET BUTTON
 To access the UF2 bootloader, either HOLD VOL+ for 20 Seconds or SELECT THE OPTION IN THE CHIP ASSISTANT MENU.
