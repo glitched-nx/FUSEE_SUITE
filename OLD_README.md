@@ -1,97 +1,124 @@
-## FUSEE UF2
+### **FUSEE UF2**
 
-Nintendo Switch internal microcontroller-based payload loader/booter.  
+Interner, Mikrocontroller-basierter Payload-Loader/-Booter für die Nintendo Switch.
 
-This consists of:  
-A Nintendo Switch v1 UNPATCHED CONSOLE  
-SAMD21 Device (Adafruit Trinket / Gemma / ItsyBitsy etc)  
-Part 1 of this software which is the SWITCHBOOT RCM bootloader that, once the chip is installed in your console, will trigger RCM mode.  
-Part 2 which is the actual payload loading software and chip settings...  
+Bestehend aus:
 
-## Features
-I have been away for over 2 years so this is going to take me a while to get back correct. I can no longer access my old account on GBATemp.  
+Einer UNGEPATCHTEN Nintendo Switch v1 Konsole
 
-## Fusee_UF2 V9 BETA Changes
-New base
-- Vastly simplified. Only 6 chip options
-- Faster booting - pre-checking / precaching of payload during bootlogo
-- Use either long-press or multiple-press chip settings options
-- Battery icon improved
-- More base modifications
-- Removed Bootlogo bitmap support for speed
-- Cleaned up Arduino code
-- Look in the About section for more information once flashed.
+Einem SAMD21-Gerät (Adafruit Trinket / Gemma / ItsyBitsy usw.)
 
+Part 1 dieser Software: Der SWITCHBOOT-RCM-Bootloader, der – sobald der Chip in deiner Konsole verbaut ist – den RCM-Modus auslöst.
 
-## Fusee_UF2 V7 Changes  
-#### Simplified operation:  
+Part 2: Die eigentliche Software zum Laden des Payloads sowie die Chip-Einstellungen...
 
-Looks for "fusee.bin" in SD root and boots it.  
-If not found, looks for bootloader/update.bin( from SDSetup.com)  
+### **Features**
 
-Hold VOL- to skip "fusee.bin" and run Hekate from default location(bootloader/update.bin). Customise in menu  
-"Payload<x>" feature removed. Pointless... Possibility of changing to incorrect payload.  
+Ich war über 2 Jahre lang inaktiv, daher wird es eine Weile dauern, bis ich hier wieder alles auf dem aktuellen Stand habe. Auf meinen alten Account bei GBATemp habe ich keinen Zugriff mehr.
 
-Hold VOL+ to enter config menu.
+### **Fusee_UF2 V9 BETA Änderungen**
 
-#### Only 3 operations needed on the chip now, all accessible from long press VOL+.
-First option: Toggle autoRCM. Release at first LONG flash... Or  
-keep holding to:  
-TWO FLASHES: Release at any point within the 2 flashes. RGB LED brightness(0-250). Hit VOL+ at your desired brightness  
-keep holding to:  
-THREE FLASHES+HOLD UNTIL SLOW FLASHING ON AND OFF -  (steady flashing(White on Adafruit boards)): Chip Eeprom reset + SAMD21 update mode on next reboot. Returns to normal on subsequent reboots.  
-  
-## Changes
-Faster boot time. Faster animation(can be disabled easily in hex editor or download the binary UF2)  
-Screen dimming/ Screensaver(if screensaver variable is 0, screen will auto-dim to save battery.)  
-Removed regenerate SXOS licence now they are dead.  
-Green text because it looks nicer.  
-Reboot bootloader option.  
-About option - take a read.  
-Unused stuff deleted from old Hekate base - Smaller binary size(you won't notice as UF2 = 512kb)  
+Neue Code-Basis
 
-Bootlogo support and manager. View / select up to 2 bootlogos:  
+* Stark vereinfacht. Nur noch 6 Chip-Optionen
+* Schnelleres Booten – Vorab-Prüfung (Pre-Checking) / Pre-Caching des Payloads während der Bootlogo-Anzeige
+* Wahlweise Nutzung von Langdruck- (Long-press) oder Mehrfachdruck-Optionen (Multiple-press) für die Chip-Einstellungen
+* Batterie-Icon verbessert
+* Weitere Modifikationen an der Basis
+* Unterstützung für Bootlogo-Bitmaps aus Geschwindigkeitsgründen entfernt
+* Arduino-Code bereinigt
+* Schau nach dem Flashen in den „About“-Bereich (Info) im Menü für weitere Details.
 
-  For Atmosphere: Drop your BMP anywhere and choose from within the app, with preview. Or place directly into atmosphere/splash.bmp  
+### **Fusee_UF2 V7 Änderungen**
 
-  For Hekate: Drop your BMP anywhere and choose from within the app, with preview. Or place directly into bootloader/bootlogo.bmp  
+#### **Vereinfachte Bedienung:**
 
-Bootlogos are chosen depending on payload in use. For example: If not using "fusee.bin", bootloader/bootlogo.bmp will be rendered.  
-If fusee.bin is being used splash.bmp will be rendered, if fusee is present but overridden with VOL-(to boot Hekate), bootlogo.bmp will be rendered.  
+Sucht im Hauptverzeichnis (Root) der SD-Karte nach `fusee.bin` und bootet diese.
 
-## Bugfixes etc...  
-#### Bugs from last public UF2 release:  
-  
-Payload<x> feature could have been set on to an unused payload "slot", causing confusion when incorrect payload is "selected" inadvertantly.
-Cheap chargers(ie Venom) are not as clean as stock Nintendo. This was resulting in random reboots, disconnecting the joycon and messing with the volume.  
-Poor intermittent joycon CHARGING connection resulting in random reboots. This was due to USB strap being activated by less-than-perfect joycon pin cleanliness. Keep pins clean!  
-Too many unused features being accessible from just pressing VOL+. Confusing for people.  
-  
-#### Fixes in this release:  
-  
-Removed payloadX. Really no need for it.  
-Only 3 operations needed on the chip now, all accessible from long press VOL+.  
-Reworked USB strap code to only place a wakeup interrupt in the following conditions:  
+Wird sie nicht gefunden, sucht der Chip nach `bootloader/update.bin` (von SDSetup.com).
 
-* ChipRCM(autoRCM chip-based) is enabled  
-* Launch has failed(as it would when plugged into PC USB)  
-* USB voltage is detected(may not activate if battery is 100% and charger isn't doing anything).  
-* Values no longer stored to EEPROM for the USB strap  
+Halte VOL- gedrückt, um `fusee.bin` zu überspringen und Hekate vom Standardpfad (`bootloader/update.bin`) zu starten. Im Menü anpassbar.
 
-## Could have added lots more things but I want it to be able to fit on a SAMD21E17(128K)  
-  
-  
-## Fitting diagrams
-  Supported microcontrollers:  
-*  Trinket M0  
-*  RCMX86  
-*  Rebug  
-*  Gemma M0  
-*  Itsybitsy M0  
-*  Feather M0  
-  
-  ## [Diagrams << Click here](https://github.com/mattytrog/FUSEE_UF2_SUITE/tree/master/Install%20Diagrams)
-  ## [TidyMemloader - just drag and drop to SD and forget. Gives USB access without Hekate/Nyx](https://github.com/mattytrog/FUSEE_SUITE/tree/master/Fusee-Suite/Tidy_Memloader)
-  ![Chip](https://user-images.githubusercontent.com/41282276/154836661-c192851e-651c-4ae9-8b62-8a2551b5d843.jpg)
+„Payload(x)“-Funktion entfernt. Sinnlos... Führte nur dazu, dass versehentlich auf einen falschen Payload gewechselt wurde.
 
-  
+Halte VOL+ gedrückt, um das Konfigurationsmenü zu öffnen.
+
+#### **Es sind jetzt nur noch 3 Aktionen direkt am Chip nötig, alle erreichbar durch langes Drücken von VOL+.**
+
+**Erste Option:** AutoRCM umschalten. Lass die Taste beim ersten LANGEN Aufblinken los... Oder
+
+weiter gedrückt halten bis:
+
+**ZWEIMALIGES BLINKEN:** Lass die Taste an einem beliebigen Punkt während des zweimaligen Blinkens los. Helligkeit der RGB-LED (0-250). Drücke VOL+ bei der gewünschten Helligkeitsstufe. Oder
+
+weiter gedrückt halten bis:
+
+DREIMALIGES BLINKEN + HALTEN BIS ZUM LANGSAMEN AN- UND AUSBLINKEN – (gleichmäßiges Blinken (Weiß bei Adafruit-Boards)): Chip-EEPROM-Reset + SAMD21-Update-Modus beim nächsten Neustart. Kehrt bei darauffolgenden Neustarts wieder in den Normalzustand zurück.
+
+### **Änderungen**
+
+Schnellere Bootzeit. Schnellere Animation (kann im Hex-Editor leicht deaktiviert werden, oder lade einfach die entsprechende UF2-Binary herunter).
+
+Bildschirm-Dimmung / Bildschirmschoner (wenn die Variable für den Bildschirmschoner auf 0 steht, dimmt das Display automatisch ab, um den Akku zu schonen).
+
+Option zum Neugenerieren der SXOS-Lizenz entfernt, da SXOS tot ist.
+
+Grüner Text, weil es schicker aussieht.
+
+Option für „Reboot to Bootloader“ hinzugefügt.
+
+„About“-Option (Info) hinzugefügt – lies sie dir mal durch.
+
+Ungenutzten Ballast aus der alten Hekate-Basis gelöscht – Kleinere Binary-Größe (wirst du nicht direkt bemerken, da UF2-Dateien immer 512 KB groß sind).
+
+Bootlogo-Unterstützung und -Manager. Bis zu 2 Bootlogos ansehen / auswählen:
+
+Für **Atmosphère:** Leg deine BMP-Datei irgendwo auf der SD-Karte ab und wähle sie direkt in der App inklusive Vorschau aus. Oder platziere sie direkt unter `atmosphere/splash.bmp`.
+
+Für **Hekate:** Leg deine BMP-Datei irgendwo auf der SD-Karte ab und wähle sie direkt in der App inklusive Vorschau aus. Oder platziere sie direkt unter `bootloader/bootlogo.bmp`.
+
+Die Bootlogos werden abhängig vom genutzten Payload geladen. Beispiel: Wenn `fusee.bin` nicht genutzt wird, wird `bootloader/bootlogo.bmp` gerendert.
+
+Wenn `fusee.bin` genutzt wird, wird `splash.bmp` gerendert; ist `fusee.bin` zwar vorhanden, wird aber durch Gedrückthalten von VOL- übersprungen (um Hekate zu booten), wird stattdessen `bootlogo.bmp` gerendert.
+
+### **Bugfixes usw...**
+
+#### **Bugs aus dem letzten öffentlichen UF2-Release:**
+
+Die „Payload(x)“-Funktion konnte auf einen ungenutzten Payload-„Slot“ gestellt werden, was für Verwirrung sorgte, wenn versehentlich ein ungültiger Payload „ausgewählt“ wurde.
+
+Billige Ladegeräte (z. B. von Venom) liefern keinen so sauberen Strom wie das originale Nintendo-Netzteil (Stock). Das führte zu zufälligen Neustarts, Verbindungsabbrüchen bei den Joy-Cons und Problemen mit der Lautstärkeregelung.
+
+Schlechte, aussetzende Ladeverbindungen der Joy-Cons führten ebenfalls zu zufälligen Neustarts. Das lag daran, dass der USB-Strap durch nicht ganz saubere Joy-Con-Pins ausgelöst wurde. Halte die Pins sauber!
+
+Zu viele ungenutzte Funktionen waren einfach über das Drücken von VOL+ erreichbar. Das war verwirrend für die Nutzer.
+
+#### **Fixes in diesem Release:**
+
+PayloadX entfernt. Dafür gibt es wirklich keinen Bedarf mehr.
+
+Jetzt sind nur noch 3 Aktionen am Chip nötig, alle erreichbar über langes Drücken von VOL+.
+
+Code für den USB-Strap überarbeitet, sodass ein Wakeup-Interrupt nur noch unter folgenden Bedingungen gesetzt wird:
+
+* ChipRCM (Chip-basiertes AutoRCM) ist aktiviert
+* Der Payload-Start (Launch) ist fehlgeschlagen (wie es passiert, wenn die Konsole per USB am PC hängt)
+* USB-Spannung wird erkannt (wird eventuell nicht ausgelöst, wenn der Akku bei 100 % ist und das Ladegerät gerade keinen Strom liefert)
+* Werte für den USB-Strap werden nicht mehr im EEPROM gespeichert
+
+#### **Ich hätte noch viel mehr Funktionen einbauen können, aber ich möchte, dass es weiterhin auf einen SAMD21E17 (128 KB) passt**
+
+### **Einbaudiagramme**
+
+**Unterstützte Mikrocontroller:**
+
+* Trinket M0
+* RCMX86
+* Rebug
+* Gemma M0
+* ItsyBitsy M0
+* Feather M0
+
+### [Diagramme << Hier klicken](https://github.com/glitched-nx/FUSEE_UF2_SUITE/tree/master/Install%20Diagrams)
+
+#### [TidyMemloader - einfach per Drag & Drop auf die SD-Karte ziehen und vergessen. Ermöglicht USB-Zugriff ohne Hekate/Nyx](https://github.com/glitched-nx/FUSEE_SUITE/tree/master/Fusee-Suite/Tidy_Memloader)
