@@ -16,7 +16,7 @@ Der Dateiname besteht aus 5 „Abschnitten“...
 
 #### Abschnitt 4: Vorausgewählte Boot-Option. 1 = Dual-Boot, 2 = ChipRCM, 3 = FailsafeRCM
 
-#### Abschnitt 5: Langdruck / Long-press (LP), Mehrfachdruck / Multiple-press (MP) oder Bootloader-Press (BP) – Long-press ist für Boards mit verbauter LED gedacht. Halte die Taste einfach lange gedrückt und lass sie im richtigen Moment los, um eine Einstellung zu ändern. Multiple-press stellt dir einen „Assistenten“ im Menü zur Verfügung – ideal für Installationen OHNE LED.
+#### Abschnitt 5: Gedrückthalten / Long-press (LP), Mehrfaches Drücken / Multiple-press (MP) oder Bootloader-Press (BP) – Long-press ist für Boards mit verbauter LED gedacht. Halte die Taste einfach lange gedrückt und lass sie im richtigen Moment los, um eine Einstellung zu ändern. Multiple-press stellt dir einen „Assistenten“ im Menü zur Verfügung – ideal für Installationen OHNE LED.
 
 #### Beispiel 1: SETTINGS_B_JVU_B1_2_LP.UF2
 
@@ -24,7 +24,7 @@ Der Dateiname besteht aus 5 „Abschnitten“...
 * JVU = ALLE STRAPS VORAUSGEWÄHLT (PRE-CHECKED)
 * B1 = DUAL-BOOT / CHIP_RCM VERFÜGBAR
 * 2 = OPTION 2 (CHIP_RCM – bzw. AUTORCM AUSGEWÄHLT)
-* LP = ANPASSUNG DER ONBOARD-CHIP-EINSTELLUNGEN ÜBER LANGDRUCK DER LAUTSTÄRKETASTE (VOL+)
+* LP = ANPASSUNG DER ONBOARD-CHIP-EINSTELLUNGEN ÜBER GEDRÜCKTHALTEN DER LAUTSTÄRKETASTE (VOL+)
 
 #### Beispiel 2: SETTINGS_R_JVU_B2_1_BP.UF2 (ideal für Kinderkonsolen)
 
@@ -40,7 +40,7 @@ Der Dateiname besteht aus 5 „Abschnitten“...
 * JVU = ALLE STRAPS VORAUSGEWÄHLT (PRE-CHECKED)
 * B3 = DUAL-BOOT / CHIP_RCM / FAILSAFE_RCM VERFÜGBAR
 * 3 = OPTION 3 (FAILSAFE_RCM AKTUELL AUSGEWÄHLT)
-* MP = CHIP-EINSTELLUNGEN ÜBER MEHRFACHDRUCK (TIMEOUT NACH 30 SEKUNDEN)
+* MP = CHIP-EINSTELLUNGEN ÜBER MEHRFACHES DRÜCKEN (TIMEOUT NACH 30 SEKUNDEN)
 
 #### Beispiel 4: SETTINGS_B_J_B1_1_LP.UF2 (Anwendungsbeispiel – Jemand, der lediglich den Joy-Con-Strap angelötet hat)
 
@@ -48,7 +48,7 @@ Der Dateiname besteht aus 5 „Abschnitten“...
 * J = Nur Joy-Con-Strap vorausgewählt (der einzige Strap, der bei diesem Nutzer verbaut ist)
 * B1 = DUAL-BOOT / CHIP_RCM VERFÜGBAR
 * 2 = OPTION 2 (CHIP_RCM – bzw. AUTORCM AUSGEWÄHLT – DIE KONSOLE WÜRDE AUFGRUND DER FEHLENDEN STRAPS DENNOCH IMMER IM DUAL-BOOT STARTEN)
-* LP = ANPASSUNG DER ONBOARD-CHIP-EINSTELLUNGEN ÜBER LANGDRUCK DER LAUTSTÄRKETASTE – SPIELT HIER KAUM EINE ROLLE, DA OHNE VOL+ STRAP OHNEHIN NICHT ERREICHBAR
+* LP = ANPASSUNG DER ONBOARD-CHIP-EINSTELLUNGEN ÜBER GEDRÜCKTHALTEN DER LAUTSTÄRKETASTE – SPIELT HIER KAUM EINE ROLLE, DA OHNE VOL+ STRAP OHNEHIN NICHT ERREICHBAR
 
 ## Eigene Datei erstellen? Ganz einfach...
 ![settingsgraphic](https://user-images.githubusercontent.com/41282276/172249882-cffa847a-9cb9-408e-9b36-6d4df604d758.jpg)
