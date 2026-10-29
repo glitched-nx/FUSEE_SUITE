@@ -20,7 +20,7 @@
 * Es sollte nun ein UF2-Laufwerk am PC erscheinen (gemountet werden). Es heißt wahrscheinlich `SWITCHBOOT`.
 * Ziehe den neuen Part 1 für deinen Chip per Drag & Drop auf das Laufwerk (wahrscheinlich ein Trinket oder ein entsprechender Klon). Sobald du Part 1 draufziehst, ändert sich der Laufwerksname von `SWITCHBOOT` zu `FUSEE`. Wenn er sich nicht in `FUSEE` ändert, ist etwas schiefgelaufen. Versuche es erneut.
 * Das UF2-Laufwerk sollte kurz verschwinden und nach einigen Sekunden wieder auftauchen. Falls nicht, drücke erneut zweimal auf die Gehäuserückseite und schalte den Bildschirm wieder aus... Jetzt sollte es erscheinen. Prüfe, ob das Laufwerk `FUSEE` heißt! Das ist wichtig.
-* Wähle einen Part 2. Langdruck (Long-press) oder Mehrfachdruck (Multiple-press)? Du entscheidest. Mehrfachdruck ist für Leute ohne verbaute LED gedacht, kann aber von jedem genutzt werden. Ziehe die Datei per Drag & Drop auf das Laufwerk. Das UF2-Laufwerk sollte sich erneut öffnen...
+* Wähle einen Part 2. Gedrückthalten (Long-press) oder Mehrfaches Drücken (Multiple-press)? Du entscheidest. Mehrfaches Drücken ist für Leute ohne verbaute LED gedacht, kann aber von jedem genutzt werden. Ziehe die Datei per Drag & Drop auf das Laufwerk. Das UF2-Laufwerk sollte sich erneut öffnen...
 * Du bist fertig. Du kannst die Konsole nun entweder ausschalten oder noch eine `SETTINGS.UF2` flashen. Die Konsole bootet danach ganz normal bzw. genau so, wie du sie konfiguriert hast.
 * Ende. Wenn alles gut gegangen ist, musst du deine Konsole nie wieder öffnen (falls du es diesmal getan hast), um in den UF2-Modus zu gelangen. Niemand sollte seine Konsole zerlegen müssen, nur um den Chip in den UF2-Modus zu versetzen.
 
@@ -138,7 +138,7 @@ Ich werde 2 identische Versionen hochladen: Eine mit der Einstellungsmethode üb
 Option ab Werk voreingestellt ist, um Long-press oder Multiple-press zu aktivieren. Du kannst diese Option jederzeit im Menü oder über deine VOL+ Taste ändern. Das dient nur der Bequemlichkeit. Die Dateien sind ansonsten exakt
 gleich. Du kannst deine Einstellungen auch über eine `SETTINGS.UF2`-Datei anpassen.
 
-**Long-press (Langdruck)** – Zu JEDEM ZEITPUNKT, an dem die Konsole eingeschaltet ist, kannst du VOL+ GEDRÜCKT HALTEN, woraufhin die LED anfängt zu blinken. Zähle das Aufblinken für die gewünschte Einstellung mit.
+**Long-press (Gedrückthalten)** – Zu JEDEM ZEITPUNKT, an dem die Konsole eingeschaltet ist, kannst du VOL+ GEDRÜCKT HALTEN, woraufhin die LED anfängt zu blinken. Zähle das Aufblinken für die gewünschte Einstellung mit.
 Die Einstellungen sind:
 
 * 1x Blinken - Wechsel zwischen Dual-Boot / Chip-basiertem RCM oder FailsafeRCM (standardmäßig ist ChipRCM aktiviert und die Konsole startet bei jedem Booten in den RCM, sofern die Straps verbunden sind)
@@ -148,7 +148,7 @@ Die Einstellungen sind:
 * 5x Blinken - Alle Chip-Optionen auf Werkseinstellungen zurücksetzen (AutoRCM bzw. ChipRCM aktiviert, schwarz-weißer „Stock“-Bootscreen)
 * 6x Blinken - Zugriff auf den UF2-Bootloader. Aktiviere dies, während du im Fusee_UF2-Programm bist, verbinde die Konsole mit dem PC und starte irgendetwas (OFW / CFW?) – das Laufwerk `FUSEE` (ehemals `SWITCHBOOT`) öffnet sich sofort am PC. Nutzer ohne LED können dies ebenfalls auslösen, indem sie VOL+ für 20 Sekunden gedrückt halten.
 
-**Multiple-press (Mehrfachdruck)** – Dieser Modus ist nach einem Kaltstart (Cold-Boot) nur für 30 Sekunden aktiv. Wenn du also mehrere Optionen ändern möchtest, musst du eventuell neu starten, um den Countdown zurückzusetzen.
+**Multiple-press (Mehrfaches Drücken)** – Dieser Modus ist nach einem Kaltstart (Cold-Boot) nur für 30 Sekunden aktiv. Wenn du also mehrere Optionen ändern möchtest, musst du eventuell neu starten, um den Countdown zurückzusetzen.
 Der Countdown wird auf dem Bildschirm angezeigt. Warum ein Countdown? Damit der Modus nicht versehentlich aktiviert wird. Kinder und Erwachsene drücken im normalen Betrieb oft mehrfach auf VOL+, um die Lautstärke zu erhöhen.
 Dadurch könnten sich sonst ungewollt Einstellungen verstellen. Dieser Modus hat aber einen großen Vorteil: Du kannst die Optionen direkt im Fusee-Menü einstellen. Schau dir dort den
 „Chip Setting Assistant“ (Chip-Einrichtungsassistent) an. Dadurch ist es möglich, einen Chip komplett „blind“ und „naked“ zu nutzen – also völlig ohne LED oder Reset-Taster.
@@ -214,7 +214,7 @@ einfarbige Onboard-LED besitzt, bleibt die RGB-LED bei diesem Board auch in Part
 * Code bereinigt
 * Beschleunigung von Check / Launch / Stack-Collapse. Das Starten von Fusee (zumindest bis zum Atmosphère-Logo) ist doppelt so schnell wie im Originalzustand (Stock).
 * Neopixel-Unterstützung hinzugefügt
-* 20 Sekunden Langdruck (Long-press) für den „blinden“ Zugriff auf den UF2-Bootloader ganz ohne LED.
+* 20 Sekunden Gedrückthalten (Long-press) für den „blinden“ Zugriff auf den UF2-Bootloader ganz ohne LED.
 
 ## PROBLEME / FAQ
 
